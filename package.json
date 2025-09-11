@@ -25,6 +25,7 @@
 		"vite": "^7.0.4"
 	},
 	"dependencies": {
+		"@neondatabase/serverless": "^1.0.1",
 		"lucide-svelte": "^0.534.0",
 		"svelte-intersection-observer": "^1.0.0",
 		"swiper": "^11.2.10"

@@ -1,7 +1,3 @@
-<script>
-    import { fly } from 'svelte/transition';
-</script>
-
 <header class="bg-amicale-light-green p-5 shadow-md">
     <div class="container mx-auto flex justify-between items-center">
         <h1 class="text-amicale-green text-2xl font-semibold">AMICALE DU PERSONNEL</h1>
