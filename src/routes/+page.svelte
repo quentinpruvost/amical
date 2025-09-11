@@ -1,11 +1,21 @@
-<script>
+<script lang="ts">
     import HeroSection from '$lib/components/accueil/HeroSection.svelte';
     import OffersSection from '$lib/components/accueil/OffersSection.svelte';
     import ContactsSection from '$lib/components/accueil/ContactsSection.svelte';
+
+    /** @type {import('./$types').PageData} */
+    export let data;
+
+    // Les données viennent maintenant du layout
+    const { hero, contacts, equipe, site_settings } = data.siteData;
 </script>
 
 <div class="container mx-auto px-4 py-8">
-    <HeroSection />
+    <HeroSection content={hero} />
     <OffersSection />
-    <ContactsSection />
+    <ContactsSection 
+        contactsContent={contacts} 
+        teamContent={equipe} 
+        reglementUrl={site_settings?.reglement_interieur_url} 
+    />
 </div>

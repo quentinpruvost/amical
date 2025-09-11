@@ -1,5 +1,5 @@
-<script>
-    import { fly } from 'svelte/transition';
+<script lang="ts">
+    export let reglementUrl: string | undefined = undefined;
 </script>
 
 <footer class="bg-amicale-green text-white p-10 mt-10">
@@ -10,14 +10,16 @@
             <p>Horaires: Lundi et Jeudi de 12h30 à 15h30</p>
         </div>
         <div>
-            <h3 class="font-bold border-b-2 border-white pb-2 mb-2">Contacts</h3>
+             <h3 class="font-bold border-b-2 border-white pb-2 mb-2">Contacts</h3>
             <p>Email: <a href="mailto:amicale@ch-bagnolssurceze.fr" class="hover:underline">amicale@ch-bagnolssurceze.fr</a></p>
             <p>Téléphone: 04.66.79.10.11 ou 06.51.53.19.23</p>
         </div>
         <div>
             <h3 class="font-bold border-b-2 border-white pb-2 mb-2">Liens</h3>
             <ul>
-                <li><a href="/reglement-interieur" class="hover:underline">Règlement Intérieur</a></li>
+                 {#if reglementUrl}
+                    <li><a href={reglementUrl} target="_blank" rel="noopener noreferrer" class="hover:underline">Règlement Intérieur</a></li>
+                 {/if}
                 <li><a href="/equipe" class="hover:underline">Notre Équipe</a></li>
             </ul>
         </div>

@@ -1,22 +1,23 @@
 <script>
     import { slide } from 'svelte/transition';
 
-    // On ajoute une propriété 'href' à chaque offre pour créer les liens
+    // On met à jour les liens pour pointer vers la page des offres
+    // avec un paramètre pour identifier l'onglet à ouvrir.
     const offers = [
         { 
             title: "Nos offres Loisirs", 
             description: "Découvrez des réductions sur vos activités préférées.",
-            href: "/offres-loisirs" // <- Lien ajouté ici
+            href: "/offres-loisirs?tab=loisirs" // <- Lien mis à jour
         },
         { 
             title: "Nos offres permanentes", 
             description: "Profitez d'avantages continus toute l'année.",
-            href: "#" // Mettez ici le lien de la future page
+            href: "/offres-loisirs?tab=permanentes" // <- Lien mis à jour
         },
         { 
             title: "Nos offres partenaires", 
             description: "Accédez aux offres exclusives de nos partenaires.",
-            href: "#" // Mettez ici le lien de la future page
+            href: "/offres-partenaires" // Ce lien pointe vers une autre page
         }
     ];
 </script>

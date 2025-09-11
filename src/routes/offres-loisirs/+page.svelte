@@ -1,51 +1,24 @@
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
+    import { page } from '$app/stores'; // <-- On importe le store 'page'
 
-	/**
-	 * Définition du type pour un lien.
-	 */
-	type Link = {
-		url: string;
-		label: string;
-	};
-
-	/**
-	 * Définition d'un type générique pour une offre,
-	 * utilisable pour les loisirs et les offres permanentes.
-	 */
-	type Offer = {
-		id: number | string;
-		title: string;
-		description: string;
-		images: string[];
-		links: Link[];
-		status: string;
-	};
+	// ... (le reste de vos types Link et Offer ne change pas)
+	type Link = { url: string; label: string; };
+	type Offer = { id: number | string; title: string; description: string; images: string[]; links: Link[]; status: string; };
 
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	// Variable pour l'offre de loisir sélectionnée (pour la modale)
 	let selectedLoisir: Offer | null = null;
 	
-	// Variable pour suivre l'onglet actif
-	let activeTab: 'loisirs' | 'permanentes' = 'loisirs';
+	// On lit le paramètre 'tab' de l'URL pour définir l'onglet actif.
+    // S'il n'y a pas de paramètre, on affiche 'loisirs' par défaut.
+	let activeTab: 'loisirs' | 'permanentes' = $page.url.searchParams.get('tab') === 'permanentes' ? 'permanentes' : 'loisirs';
 
-	// Fonctions pour gérer la modale
-	function openModal(offer: Offer) {
-		selectedLoisir = offer;
-	}
-
-	function closeModal() {
-		selectedLoisir = null;
-	}
-
-	// Gère la fermeture de la modale avec la touche "Échap"
-	function handleKeydown(event: KeyboardEvent) {
-		if (event.key === 'Escape') {
-			closeModal();
-		}
-	}
+	// ... (le reste de votre script : openModal, closeModal, etc. ne change pas)
+	function openModal(offer: Offer) { selectedLoisir = offer; }
+	function closeModal() { selectedLoisir = null; }
+	function handleKeydown(event: KeyboardEvent) { if (event.key === 'Escape') closeModal(); }
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
