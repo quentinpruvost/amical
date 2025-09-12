@@ -1,24 +1,47 @@
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
-    import { page } from '$app/stores'; // <-- On importe le store 'page'
+    import { page } from '$app/stores';
+    import { goto } from '$app/navigation';
 
-	// ... (le reste de vos types Link et Offer ne change pas)
-	type Link = { url: string; label: string; };
-	type Offer = { id: number | string; title: string; description: string; images: string[]; links: Link[]; status: string; };
+	// Définition des types pour garantir la robustesse du code
+	type Link = { 
+        url: string; 
+        label: string; 
+    };
+	type Offer = { 
+        id: number | string; 
+        title: string; 
+        description: string; 
+        images: string[]; 
+        links: Link[]; 
+        status: string; 
+    };
 
 	/** @type {import('./$types').PageData} */
-	export let data;
+	export let data; // data contient { siteData, loisirs, permanentes }
 
+	// Variable pour l'offre sélectionnée qui sera affichée dans la modale
 	let selectedLoisir: Offer | null = null;
 	
-	// On lit le paramètre 'tab' de l'URL pour définir l'onglet actif.
-    // S'il n'y a pas de paramètre, on affiche 'loisirs' par défaut.
+	// Lit le paramètre 'tab' de l'URL pour déterminer quel onglet doit être actif
 	let activeTab: 'loisirs' | 'permanentes' = $page.url.searchParams.get('tab') === 'permanentes' ? 'permanentes' : 'loisirs';
 
-	// ... (le reste de votre script : openModal, closeModal, etc. ne change pas)
-	function openModal(offer: Offer) { selectedLoisir = offer; }
-	function closeModal() { selectedLoisir = null; }
-	function handleKeydown(event: KeyboardEvent) { if (event.key === 'Escape') closeModal(); }
+    // Fonction pour changer d'onglet et mettre à jour l'URL
+    function selectTab(tabName: 'loisirs' | 'permanentes') {
+        activeTab = tabName;
+        goto(`?tab=${tabName}`, { keepFocus: true, noScroll: true, replaceState: true });
+    }
+
+	// Fonctions pour ouvrir et fermer la modale
+	function openModal(offer: Offer) { 
+        selectedLoisir = offer; 
+    }
+	function closeModal() { 
+        selectedLoisir = null; 
+    }
+	function handleKeydown(event: KeyboardEvent) { 
+        if (event.key === 'Escape') closeModal(); 
+    }
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
@@ -26,13 +49,13 @@
 <div class="bg-gray-50 min-h-screen">
     <div class="container mx-auto px-4 py-12">
         <div class="text-center mb-8">
-            <h1 class="text-4xl md:text-5xl font-extrabold text-amicale-green mb-2">Nos Offres</h1>
+            <h1 class="text-4xl md:text-5xl font-bold font-serif text-amicale-green mb-2">Nos Offres</h1>
             <p class="text-lg text-gray-600">Explorez nos avantages exclusifs pour les membres.</p>
         </div>
 
         <div class="mb-10 flex justify-center border-b-2 border-gray-200">
             <button
-                on:click={() => activeTab = 'loisirs'}
+                on:click={() => selectTab('loisirs')}
                 class="px-6 py-3 text-lg font-semibold transition-colors duration-300"
                 class:text-amicale-green={activeTab === 'loisirs'}
                 class:border-b-4={activeTab === 'loisirs'}
@@ -42,7 +65,7 @@
                 Offres Loisirs
             </button>
             <button
-                on:click={() => activeTab = 'permanentes'}
+                on:click={() => selectTab('permanentes')}
                 class="px-6 py-3 text-lg font-semibold transition-colors duration-300"
                 class:text-amicale-green={activeTab === 'permanentes'}
                 class:border-b-4={activeTab === 'permanentes'}
@@ -59,7 +82,7 @@
                     {#each data.loisirs as loisir (loisir.id)}
                         <button
                             on:click={() => openModal(loisir)}
-                            class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out overflow-hidden flex flex-col text-left focus:outline-none focus:ring-2 focus:ring-amicale-green focus:ring-opacity-50"
+                            class="card bg-white rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 ease-in-out hover:scale-105 flex flex-col text-left focus:outline-none focus:ring-2 focus:ring-amicale-green focus:ring-opacity-50"
                         >
                             <div class="relative">
                                 <img src={loisir.images[0]} alt="Image pour {loisir.title}" class="w-full aspect-video object-cover">
@@ -68,7 +91,7 @@
                                 {/if}
                             </div>
                             <div class="p-6 flex-grow flex flex-col">
-                                <h2 class="font-bold text-xl text-gray-800 mb-2">{loisir.title}</h2>
+                                <h2 class="font-bold text-xl font-serif text-gray-800 mb-2">{loisir.title}</h2>
                                 <p class="text-gray-600 leading-relaxed flex-grow text-sm line-clamp-3">{loisir.description}</p>
                                 <div class="text-right mt-4 text-amicale-green font-semibold text-sm">
                                     Voir les détails →
@@ -85,7 +108,10 @@
                 {#if data.permanentes && data.permanentes.length > 0}
                     {#each data.permanentes as offer (offer.id)}
                         <div class="bg-white rounded-lg shadow-md p-6">
-                            <h3 class="text-2xl font-bold text-amicale-green mb-2">{offer.title}</h3>
+                            <h3 class="flex items-center text-2xl font-bold font-serif text-amicale-green mb-2">
+                                <svg class="w-6 h-6 mr-3 text-amicale-green/70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 5v2m0 4v2m0 4v2M5 5a2 2 0 00-2 2v3a2 2 0 110 4v3a2 2 0 002 2h14a2 2 0 002-2v-3a2 2 0 110-4V7a2 2 0 00-2-2H5z"></path></svg>
+                                {offer.title}
+                            </h3>
                             <p class="text-gray-700 mb-4 whitespace-pre-line">{offer.description}</p>
                             {#if offer.links && offer.links.length > 0}
                                 <div class="flex flex-wrap gap-4 pt-4 border-t border-gray-200">
@@ -100,13 +126,12 @@
                         </div>
                     {/each}
                 {:else}
-                    <p class="text-center col-span-full text-gray-500">Aucune offre permanente disponible pour le moment.</p>
+                     <p class="text-center col-span-full text-gray-500">Aucune offre permanente disponible pour le moment.</p>
                 {/if}
             </div>
         {/if}
     </div>
 </div>
-
 
 {#if selectedLoisir}
     <div
@@ -121,14 +146,14 @@
                     on:click={closeModal}
                     class="sticky top-4 right-4 text-gray-500 hover:text-gray-900 bg-white/70 backdrop-blur-sm rounded-full p-2 transition-colors"
                     aria-label="Fermer"
-                >
+                 >
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
             </div>
 
             <div class="max-w-4xl mx-auto">
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-4">{selectedLoisir.title}</h2>
-                <p class="text-xl text-gray-600 mb-8">{selectedLoisir.description}</p>
+                <h2 class="text-4xl md:text-5xl font-bold font-serif text-gray-900 mb-4">{selectedLoisir.title}</h2>
+                <p class="text-xl text-gray-600 mb-8 whitespace-pre-line">{selectedLoisir.description}</p>
 
                 {#if selectedLoisir.status}
                     <div class="bg-red-50 border-l-4 border-red-500 text-red-800 p-4 mb-8 rounded-r-lg" role="alert">
@@ -160,7 +185,7 @@
                         </div>
                     {:else if selectedLoisir.images && selectedLoisir.images.length > 0}
                         <div class="col-span-3 row-span-2 rounded-lg overflow-hidden shadow-lg">
-                            <img src={selectedLoisir.images[0]} alt="Image principale" class="w-full h-full object-cover">
+                             <img src={selectedLoisir.images[0]} alt="Image principale" class="w-full h-full object-cover">
                         </div>
                     {/if}
                 </div>
@@ -170,14 +195,12 @@
 {/if}
 
 <style>
-    /* Permet de couper le texte de la description sur 3 lignes dans la carte */
     .line-clamp-3 {
         overflow: hidden;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 3;
     }
-    /* Préserve les sauts de ligne dans les descriptions des offres permanentes */
     .whitespace-pre-line {
         white-space: pre-line;
     }

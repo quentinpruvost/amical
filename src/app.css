@@ -1,3 +1,9 @@
+/* src/app.css */
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+/* Applique la police Playfair Display à tous les titres h1, h2, et h3 */
+h1, h2, h3 {
+    @apply font-serif;
+}

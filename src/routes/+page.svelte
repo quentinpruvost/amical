@@ -6,7 +6,7 @@
     /** @type {import('./$types').PageData} */
     export let data;
 
-    // Les données viennent maintenant du layout
+    // Les données du site viennent du layout parent
     const { hero, contacts, equipe, site_settings } = data.siteData;
 </script>
 

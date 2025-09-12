@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
-	// --- Définition des types (inchangé) ---
+	// --- Définition des types pour TypeScript ---
 	type Partner = {
 		id: number;
 		category: string;
@@ -17,31 +17,23 @@
 	const partnersByCategory: PartnersByCategory = data.partnersByCategory;
 
 	// --- Logique de recherche et de filtrage ---
-
-	// Variables réactives pour les filtres
 	let searchTerm = '';
 	let selectedCategory = 'Toutes les catégories';
 
-	// On extrait la liste des catégories une seule fois pour le menu déroulant
 	const categories = ['Toutes les catégories', ...Object.keys(partnersByCategory)];
 
-	// Variable réactive qui recalcule les partenaires à afficher quand un filtre change
 	$: filteredPartnersByCategory = (() => {
 		const result: PartnersByCategory = {};
 
-		// On parcourt chaque catégorie de la liste originale
 		for (const category in partnersByCategory) {
-			// 1. Filtrage par catégorie sélectionnée
 			if (selectedCategory !== 'Toutes les catégories' && category !== selectedCategory) {
-				continue; // Si la catégorie ne correspond pas, on passe à la suivante
+				continue;
 			}
 
-			// 2. Filtrage par terme de recherche sur le nom
 			const filteredPartners = partnersByCategory[category].filter((partner) =>
 				partner.title.toLowerCase().includes(searchTerm.toLowerCase())
 			);
 
-			// Si la catégorie contient des partenaires après le filtrage, on l'ajoute au résultat
 			if (filteredPartners.length > 0) {
 				result[category] = filteredPartners;
 			}
@@ -89,7 +81,8 @@
 		<div class="space-y-12">
 			{#each Object.entries(filteredPartnersByCategory) as [category, partners], i}
 				<section in:fly={{ y: 20, duration: 500, delay: i * 50 }}>
-					<h2 class="text-3xl font-bold text-gray-800 border-b-4 border-amicale-green pb-2 mb-8">
+					<h2 class="flex items-center text-3xl font-bold text-gray-800 border-b-4 border-amicale-green pb-2 mb-8">
+						<svg class="w-8 h-8 mr-4 text-amicale-green/80" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
 						{category}
 					</h2>
 					<div class="space-y-6">
