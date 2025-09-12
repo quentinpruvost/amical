@@ -28,6 +28,7 @@
 	"dependencies": {
 		"@neondatabase/serverless": "^1.0.1",
 		"bcrypt": "^6.0.0",
+		"cloudinary": "^2.7.0",
 		"lucide-svelte": "^0.534.0",
 		"svelte-intersection-observer": "^1.0.0",
 		"swiper": "^11.2.10"
