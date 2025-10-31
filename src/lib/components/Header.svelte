@@ -1,7 +1,6 @@
 <script lang="ts">
     import { page } from '$app/stores';
     import { fly } from 'svelte/transition';
-
     let mobileMenuOpen = false;
 
     // Fonction pour fermer le menu mobile (utile après un clic sur un lien)
@@ -12,8 +11,8 @@
 
 <header class="bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm border-b border-gray-200">
     <div class="container mx-auto flex justify-between items-center p-4">
-        <a href="/" class="text-amicale-green text-xl font-bold tracking-wider">
-            AMICALE DU PERSONNEL
+        <a href="/" class="flex items-center" aria-label="Retour à l'accueil">
+            <img src="/logo-amicale.jpg" alt="Logo de l'Amicale du Personnel" class="h-12 w-auto">
         </a>
 
         <nav class="hidden md:flex items-center space-x-2">
@@ -44,7 +43,7 @@
                     <span class="absolute bottom-0 left-0 w-full h-0.5 bg-amicale-green" in:fly={{ y: 5, duration: 300 }}></span>
                 {/if}
             </a>
-            </nav>
+        </nav>
 
         <div class="md:hidden">
             <button on:click={() => mobileMenuOpen = !mobileMenuOpen} class="text-amicale-green focus:outline-none" aria-label="Ouvrir le menu">
