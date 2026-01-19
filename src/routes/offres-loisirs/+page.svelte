@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Billetterie & Loisirs - Tarifs Réduits</title>
+    <meta name="description" content="Consultez nos tarifs réduits pour les cinémas, parcs d'attractions et spectacles de la région." />
+</svelte:head>
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
     import { page } from '$app/stores';

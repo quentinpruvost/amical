@@ -1,3 +1,10 @@
+<svelte:head>
+    <title>Accueil - Amicale du Centre Hospitalier</title>
+    <meta name="description" content="Site officiel de l'Amicale. Retrouvez toute la billetterie, les loisirs et les offres partenaires pour le personnel." />
+    <meta property="og:title" content="Accueil - Amicale du Centre Hospitalier" />
+    <meta property="og:description" content="Profitez de tarifs réduits cinéma, parcs et spectacles." />
+    <meta property="og:image" content="/logo-amicale.jpg" />
+</svelte:head>
 <script lang="ts">
     import HeroSection from '$lib/components/accueil/HeroSection.svelte';
     import OffersSection from '$lib/components/accueil/OffersSection.svelte';

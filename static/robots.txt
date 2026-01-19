@@ -1,3 +1,9 @@
-# allow crawling everything by default
 User-agent: *
-Disallow:
+Allow: /
+
+# On demande à Google de ne pas indexer l'admin
+Disallow: /admin/
+Disallow: /api/
+
+# Indiquez le chemin complet vers votre sitemap
+Sitemap: https://www.amicale-chbagnols-sur-ceze.fr/sitemap.xml

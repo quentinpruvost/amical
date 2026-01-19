@@ -1,3 +1,7 @@
+<svelte:head>
+    <title>Nos Partenaires - Réductions et Avantages</title>
+    <meta name="description" content="Liste des commerçants et partenaires offrant des réductions aux membres de l'amicale." />
+</svelte:head>
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
