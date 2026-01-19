@@ -20,7 +20,6 @@
                  {#if reglementUrl}
                     <li><a href={reglementUrl} target="_blank" rel="noopener noreferrer" class="hover:underline">Règlement Intérieur</a></li>
                  {/if}
-                <li><a href="/equipe" class="hover:underline">Notre Équipe</a></li>
             </ul>
         </div>
     </div>
