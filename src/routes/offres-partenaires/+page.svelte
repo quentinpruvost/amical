@@ -1,6 +1,10 @@
 <svelte:head>
     <title>Nos Partenaires - Réductions et Avantages</title>
     <meta name="description" content="Liste des commerçants et partenaires offrant des réductions aux membres de l'amicale." />
+	<meta property="og:title" content="Billetterie & Loisirs - Amicale CH Bagnols" />
+<meta property="og:description" content="Découvrez toutes nos réductions cinéma et parcs." />
+<meta property="og:image" content="https://www.amicale-chbagnols-sur-ceze.fr/logo-amicale.jpg" />
+<meta property="og:url" content="https://www.amicale-chbagnols-sur-ceze.fr/offres-loisirs" />
 </svelte:head>
 <script lang="ts">
 	import { fly } from 'svelte/transition';

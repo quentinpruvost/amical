@@ -7,7 +7,7 @@
 
 <section class="bg-blue-50 p-10 md:p-20 text-center rounded-lg mb-10" transition:fade={{ duration: 1000 }}>
     <div class="max-w-3xl mx-auto">
-        <h2 class="text-amicale-green text-3xl md:text-4xl font-extrabold mb-5">{content.title}</h2>
+        <h1 class="text-amicale-green text-3xl md:text-4xl font-extrabold mb-5">{content.title}</h1>
         <p class="text-gray-700 text-lg leading-relaxed">{content.intro_1}</p>
         <p class="text-gray-700 text-lg leading-relaxed mt-2">
             {@html `L'adhésion est valable pour <strong class="text-amicale-green font-bold">toute la famille</strong> (conjointe et enfants à charge) sur l'<strong class="text-amicale-green font-bold">année civile</strong> en cours (1er janvier au 31 décembre).`}

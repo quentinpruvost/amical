@@ -1,6 +1,10 @@
 <svelte:head>
     <title>Billetterie & Loisirs - Tarifs Réduits</title>
     <meta name="description" content="Consultez nos tarifs réduits pour les cinémas, parcs d'attractions et spectacles de la région." />
+    <meta property="og:title" content="Billetterie & Loisirs - Amicale CH Bagnols" />
+<meta property="og:description" content="Découvrez toutes nos réductions cinéma et parcs." />
+<meta property="og:image" content="https://www.amicale-chbagnols-sur-ceze.fr/logo-amicale.jpg" />
+<meta property="og:url" content="https://www.amicale-chbagnols-sur-ceze.fr/offres-loisirs" />
 </svelte:head>
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';

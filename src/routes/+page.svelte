@@ -4,6 +4,20 @@
     <meta property="og:title" content="Accueil - Amicale du Centre Hospitalier" />
     <meta property="og:description" content="Profitez de tarifs réduits cinéma, parcs et spectacles." />
     <meta property="og:image" content="/logo-amicale.jpg" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Amicale du Centre Hospitalier de Bagnols-sur-Cèze",
+  "url": "https://www.amicale-chbagnols-sur-ceze.fr",
+  "logo": "https://www.amicale-chbagnols-sur-ceze.fr/logo-amicale.jpg",
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "telephone": "04-66-79-10-11",
+    "contactType": "customer service"
+  }
+}
+</script>
 </svelte:head>
 <script lang="ts">
     import HeroSection from '$lib/components/accueil/HeroSection.svelte';
