@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { neon } from '@neondatabase/serverless';
 import { env } from '$env/dynamic/private';
 import { createClient } from '@supabase/supabase-js';
+import sharp from 'sharp'; // <--- NOUVEL IMPORT
 
 // --- INIT ---
 const sql = neon(env.DATABASE_URL);
@@ -24,8 +25,8 @@ const BUCKET_NAME = 'amicale';
 
 /**
  * Fonction utilitaire pour parser le JSON sans erreur
- * @param {any} data - Les données à parser (string ou tableau)
- * @returns {any[]} - Un tableau valide
+ * @param {any} data
+ * @returns {any[]}
  */
 function parseJsonSafe(data) {
     if (Array.isArray(data)) return data;
@@ -73,21 +74,32 @@ export const actions = {
 
         if (!type || !ALLOWED_TABLES.includes(type)) return fail(400, { error: "Type invalide." });
 
-        // 1. IMAGES
+        // 1. IMAGES (AVEC OPTIMISATION SHARP)
         const newImageFiles = data.getAll('images');
         let existingImages = parseJsonSafe(data.get('existing_images')?.toString());
 
         for (const file of newImageFiles) {
             if (file instanceof File && file.size > 0) {
                 try {
-                    // Nom de fichier sécurisé
-                    const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                    // On sécurise le nom
+                    const safeName = file.name.replace(/[^a-zA-Z0-9.]/g, '_').split('.')[0] + '.jpg'; // Force l'extension .jpg
                     const uniqueName = `images/${Date.now()}-${safeName}`;
-                    const buffer = await file.arrayBuffer();
+                    
+                    // --- OPTIMISATION DU FICHIER ICI ---
+                    const originalBuffer = await file.arrayBuffer();
+                    const optimizedBuffer = await sharp(Buffer.from(originalBuffer))
+                        .rotate() // Remet l'image à l'endroit (ex: photos iPhone)
+                        .resize(1200, 1200, { // Redimensionne max 1200px
+                            fit: 'inside',
+                            withoutEnlargement: true 
+                        })
+                        .jpeg({ quality: 80, mozjpeg: true }) // Compresse en JPEG
+                        .toBuffer();
+                    // ------------------------------------
 
                     const { error: uploadError } = await supabase.storage
                         .from(BUCKET_NAME)
-                        .upload(uniqueName, buffer, { contentType: file.type || 'image/jpeg', upsert: false });
+                        .upload(uniqueName, optimizedBuffer, { contentType: 'image/jpeg', upsert: false });
 
                     if (uploadError) throw uploadError;
 
@@ -104,7 +116,7 @@ export const actions = {
             }
         }
 
-        // 2. PDF & LIENS
+        // 2. PDF & LIENS (Pas de changement)
         const manualLinksText = data.get('manual_links')?.toString() ?? '';
         let finalLinks = manualLinksText.split('\n').map(line => {
             const [label, url] = line.split('|').map(s => s.trim());

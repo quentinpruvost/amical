@@ -1,8 +1,9 @@
-// src/routes/admin/+layout.server.js
 import { guard } from '$lib/server/security';
 
 /** @type {import('./$types').LayoutServerLoad} */
-export function load(event) {
-    // On appelle notre garde. C'est tout.
-    guard(event);
+export async function load(event) {
+    // ⚠️ IMPORTANT : On ajoute 'await' ici car guard fait une requête DB maintenant
+    await guard(event); 
+    
+    return {};
 }
