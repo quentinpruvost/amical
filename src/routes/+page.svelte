@@ -4,6 +4,7 @@
     <meta property="og:title" content="Accueil - Amicale du Centre Hospitalier" />
     <meta property="og:description" content="Profitez de tarifs réduits cinéma, parcs et spectacles." />
     <meta property="og:image" content="/logo-amicale.jpg" />
+    <link rel="canonical" href="https://www.amicale-chbagnols-sur-ceze.fr/" />
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
