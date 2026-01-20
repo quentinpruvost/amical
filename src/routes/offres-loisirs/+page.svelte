@@ -5,6 +5,23 @@
 <meta property="og:description" content="Découvrez toutes nos réductions cinéma et parcs." />
 <meta property="og:image" content="https://www.amicale-chbagnols-sur-ceze.fr/logo-amicale.jpg" />
 <meta property="og:url" content="https://www.amicale-chbagnols-sur-ceze.fr/offres-loisirs" />
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [{
+    "@type": "ListItem",
+    "position": 1,
+    "name": "Accueil",
+    "item": "https://www.amicale-chbagnols-sur-ceze.fr"
+  },{
+    "@type": "ListItem",
+    "position": 2,
+    "name": "Offres Loisirs",
+    "item": "https://www.amicale-chbagnols-sur-ceze.fr/offres-loisirs"
+  }]
+}
+</script>
 </svelte:head>
 <script lang="ts">
 	import { fly, fade } from 'svelte/transition';
