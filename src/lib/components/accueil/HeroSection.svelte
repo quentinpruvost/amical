@@ -14,7 +14,7 @@
         </p>
         <div class="mt-8 p-6 bg-white rounded-lg shadow-inner">
             <p class="text-xl font-bold text-gray-800">Tarif = {content.tarif_principal} <span class="text-sm font-normal text-gray-500">(année {content.annee_tarif})</span></p>
-            <p class="text-gray-600 mt-1">Tarif réduit pour les étudiants de l'IFSI = {content.tarif_etudiant}</p>
+            <p class="text-gray-600 mt-1">Tarif réduit pour les étudiants de l'IFMS = {content.tarif_etudiant}</p>
         </div>
         <div class="mt-8 p-6 bg-white rounded-lg shadow-inner">
             <h3 class="text-2xl font-bold text-amicale-green mb-2">{content.note_title}</h3>
